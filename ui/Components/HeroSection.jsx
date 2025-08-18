@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const HeroSection = () => {
   return (
@@ -33,7 +34,9 @@ const HeroSection = () => {
               Enter your symptoms and let our AI help you understand possible
               conditions instantly.
             </p>
-            <button className="btn btn-primary btn-lg mt-3">Analyse</button>
+            <Link to="/symptoms-analysis">
+              <button className="btn btn-primary btn-lg mt-3">Analyse</button>
+            </Link>
           </div>
         </div>
       </div>

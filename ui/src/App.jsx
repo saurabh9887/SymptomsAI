@@ -1,9 +1,9 @@
 import { useState } from "react";
-import SymptomForm from "../Components/SymptomsForm";
-import SymptomResponse from "../Components/SymptomsResponse";
-import NavbarComponent from "../Components/Navbar";
 import "bootstrap/dist/css/bootstrap.min.css";
-import HeroSection from "../Components/HeroSection";
+import Home from "../Pages/Home";
+import { BrowserRouter, Routes, Route } from "react-router";
+import Layout from "../Components/Layout";
+import Symptoms from "../Pages/Symptoms";
 
 export default function App() {
   const [aiResponse, setAiResponse] = useState(null);
@@ -11,12 +11,14 @@ export default function App() {
 
   return (
     <div className="">
-      <NavbarComponent />
-      <HeroSection />
-      {/* <h1 className="mb-4 text-center">AI Symptom Checker</h1>
-      <SymptomForm onResult={setAiResponse} />
-      <SymptomResponse response={aiResponse} /> */}
-      {/* <SymptomHistory userId={userId} /> */}
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Layout />} />
+          <Route index element={<Home />} />
+          <Route path="symptoms-analysis" element={<Symptoms />} />
+        </Routes>
+      </BrowserRouter>
+      ,
     </div>
   );
 }
