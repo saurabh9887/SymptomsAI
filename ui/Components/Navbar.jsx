@@ -1,11 +1,11 @@
-import Button from "react-bootstrap/Button";
 import Container from "react-bootstrap/Container";
-import Form from "react-bootstrap/Form";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
-import NavDropdown from "react-bootstrap/NavDropdown";
+import Dropdown from "react-bootstrap/Dropdown";
+import { useAuth } from "../Context/authContext";
 
 const NavbarComponent = () => {
+  const { user } = useAuth();
   return (
     <Navbar expand="lg" className="bg-body-tertiary">
       <Container fluid>
@@ -19,40 +19,33 @@ const NavbarComponent = () => {
           >
             <Nav.Link href="#action1">Home</Nav.Link>
             <Nav.Link href="#action2">Analyse</Nav.Link>
-            {/* <NavDropdown title="Link" id="navbarScrollingDropdown">
-              <NavDropdown.Item href="#action3">Action</NavDropdown.Item>
-              <NavDropdown.Item href="#action4">
-                Another action
-              </NavDropdown.Item>
-              <NavDropdown.Divider />
-              <NavDropdown.Item href="#action5">
-                Something else here
-              </NavDropdown.Item>
-            </NavDropdown> */}
-            <Nav.Link href="#">History</Nav.Link>
+            <Nav.Link href="#history">History</Nav.Link>
           </Nav>
 
-          <div className="profile d-flex align-items-center justify-content-center gap-2">
-            <img
-              width="40"
-              height="40"
-              src="/assets/img/profile-avatar.webp"
-              // className="img-thumbnail"
-              alt=""
-              style={{ borderRadius: "50%" }}
-            />
-            <span>username</span>
-          </div>
+          {/* 🔽 Profile Dropdown without arrow */}
+          <Dropdown align="end">
+            <Dropdown.Toggle
+              as="div" // custom toggle
+              id="profile-dropdown"
+              className="d-flex align-items-center gap-2"
+              style={{ cursor: "pointer" }}
+            >
+              <img
+                width="40"
+                height="40"
+                src="/assets/img/profile-avatar.webp"
+                alt="profile"
+                style={{ borderRadius: "50%" }}
+              />
+              <span>{user.name}</span>
+            </Dropdown.Toggle>
 
-          {/* <Form className="d-flex">
-            <Form.Control
-              type="search"
-              placeholder="Search"
-              className="me-2"
-              aria-label="Search"
-            />
-            <Button variant="outline-success">Search</Button>
-          </Form> */}
+            <Dropdown.Menu>
+              <Dropdown.Item href="#profile">Profile</Dropdown.Item>
+              <Dropdown.Divider />
+              <Dropdown.Item href="#logout">Logout</Dropdown.Item>
+            </Dropdown.Menu>
+          </Dropdown>
         </Navbar.Collapse>
       </Container>
     </Navbar>

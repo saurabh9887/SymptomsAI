@@ -9,12 +9,15 @@ export default function SymptomForm({ onResult }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setLoading(true);
     let isValid = false;
 
     if (symptoms === "" || symptoms === undefined || symptoms === null) {
       isValid = true;
       setError(true);
+    }
+
+    if (!isValid) {
+      setLoading(true);
     }
 
     // const res = await fetch("http://localhost:5000/api/symptoms/analyse", {
@@ -31,11 +34,12 @@ export default function SymptomForm({ onResult }) {
       symptoms: symptoms,
     };
 
-    const res = await analyseSymptoms(api_params);
-
-    // const data = await res.json();
-    onResult(res.data.aiResponse);
-    setLoading(false);
+    if (!isValid) {
+      const res = await analyseSymptoms(api_params);
+      // const data = await res.json();
+      onResult(res.data.aiResponse);
+      setLoading(false);
+    }
   };
 
   return (
@@ -57,6 +61,14 @@ export default function SymptomForm({ onResult }) {
                 value={symptoms}
                 onChange={(e) => setSymptoms(e.target.value)}
               />
+              {error &&
+              (symptoms === "" ||
+                symptoms === undefined ||
+                symptoms === null) ? (
+                <span style={{ color: "red" }}>This field is required</span>
+              ) : (
+                ""
+              )}
             </div>
             <button
               type="submit"
