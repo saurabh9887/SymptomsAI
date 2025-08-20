@@ -7,3 +7,10 @@ export const analyseSymptoms = async (params) => {
 
   return res;
 };
+
+export const getHistoryAPI = async (id) => {
+  const url = `${Base_url}/symptoms/analyse-history?userId=${id}`;
+  const res = await axios.get(url);
+
+  return res;
+};

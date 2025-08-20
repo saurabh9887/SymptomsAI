@@ -27,40 +27,46 @@ const NavbarComponent = () => {
             <Nav.Link as={Link} to="/symptoms-analysis">
               Analyse
             </Nav.Link>
-            <Nav.Link as={Link} to="/history">
+            <Nav.Link as={Link} to="/analysis-history">
               History
             </Nav.Link>
-            {!user && (
+            {/* {!user && (
               <Nav.Link as={Link} to="/login">
                 Login
               </Nav.Link>
-            )}
+            )} */}
           </Nav>
 
           {/* 🔽 Profile Dropdown without arrow */}
-          <Dropdown align="end">
-            <Dropdown.Toggle
-              as="div" // custom toggle
-              id="profile-dropdown"
-              className="d-flex align-items-center gap-2"
-              style={{ cursor: "pointer" }}
-            >
-              <img
-                width="40"
-                height="40"
-                src="/assets/img/profile-avatar.webp"
-                alt="profile"
-                style={{ borderRadius: "50%" }}
-              />
-              <span>{user?.name || "username"}</span>
-            </Dropdown.Toggle>
+          {user ? (
+            <Dropdown align="end">
+              <Dropdown.Toggle
+                as="div" // custom toggle
+                id="profile-dropdown"
+                className="d-flex align-items-center gap-2"
+                style={{ cursor: "pointer" }}
+              >
+                <img
+                  width="40"
+                  height="40"
+                  src="/assets/img/profile-avatar.webp"
+                  alt="profile"
+                  style={{ borderRadius: "50%" }}
+                />
+                <span>{user?.name || "username"}</span>
+              </Dropdown.Toggle>
 
-            <Dropdown.Menu>
-              <Dropdown.Item href="#profile">Profile</Dropdown.Item>
-              <Dropdown.Divider />
-              <Dropdown.Item onClick={logout}>Logout</Dropdown.Item>
-            </Dropdown.Menu>
-          </Dropdown>
+              <Dropdown.Menu>
+                <Dropdown.Item href="#profile">Profile</Dropdown.Item>
+                <Dropdown.Divider />
+                <Dropdown.Item onClick={logout}>Logout</Dropdown.Item>
+              </Dropdown.Menu>
+            </Dropdown>
+          ) : (
+            <Nav.Link as={Link} to="/login">
+              Login
+            </Nav.Link>
+          )}
         </Navbar.Collapse>
       </Container>
     </Navbar>

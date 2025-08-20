@@ -11,6 +11,7 @@ const HeroSection = () => {
   const handleAnalyse = () => {
     if (!user) {
       showToast("Please login, before you proceed", "primary");
+      navigate("/login");
     } else {
       navigate("/symptoms-analysis");
     }

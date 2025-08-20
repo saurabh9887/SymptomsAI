@@ -50,3 +50,29 @@ export const aiSymptoms = async (req, res) => {
     res.status(500).json({ error: "Something went wrong" });
   }
 };
+
+export const symptomsHistory = async (req, res) => {
+  try {
+    const { userId } = req.query;
+
+    if (!userId) {
+      return res.status(400).json({ error: "UserId is required" });
+    }
+
+    // Get latest first using createdAt
+    const history = await SymptomAnalysis.find({ userId }).sort({
+      createdAt: -1,
+    });
+
+    if (!history || history.length === 0) {
+      return res
+        .status(404)
+        .json({ message: "No history found for this user" });
+    }
+
+    res.status(200).json(history);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Server error" });
+  }
+};

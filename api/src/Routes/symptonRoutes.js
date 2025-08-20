@@ -1,8 +1,12 @@
 import express from "express";
-import { aiSymptoms } from "../Controllers/symptonController.js";
+import {
+  aiSymptoms,
+  symptomsHistory,
+} from "../Controllers/symptonController.js";
 
 const router = express.Router();
 
 router.post("/analyse", aiSymptoms);
+router.get("/analyse-history", symptomsHistory);
 
 export default router;

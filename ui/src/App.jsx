@@ -5,6 +5,8 @@ import { BrowserRouter, Routes, Route } from "react-router";
 import Layout from "../Components/Layout";
 import Symptoms from "../Pages/Symptoms";
 import LoginPage from "../Pages/LoginPage";
+import HistoryPage from "../Components/SymptomsHistory";
+import ProtectedRoute from "../Components/ProtectedRoute";
 
 export default function App() {
   const [aiResponse, setAiResponse] = useState(null);
@@ -20,7 +22,24 @@ export default function App() {
           {/* Layout with navbar */}
           <Route path="/" element={<Layout />}>
             <Route index element={<Home />} /> {/* default child of Layout */}
-            <Route path="symptoms-analysis" element={<Symptoms />} />
+            {/* <Route path="symptoms-analysis" element={<Symptoms />} /> */}
+            {/* <Route path="analysis-history" element={<HistoryPage />} /> */}
+            <Route
+              path="analysis-history"
+              element={
+                <ProtectedRoute>
+                  <HistoryPage />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="symptoms-analysis"
+              element={
+                <ProtectedRoute>
+                  <Symptoms />
+                </ProtectedRoute>
+              }
+            />
           </Route>
         </Routes>
       </BrowserRouter>
