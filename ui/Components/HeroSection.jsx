@@ -1,7 +1,20 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useAuth } from "../Context/authContext";
+import { useToast } from "../Context/ToastContext";
 
 const HeroSection = () => {
+  const { user } = useAuth();
+  const { showToast } = useToast();
+  const navigate = useNavigate();
+
+  const handleAnalyse = () => {
+    if (!user) {
+      showToast("Please login, before you proceed", "primary");
+    } else {
+      navigate("/symptoms-analysis");
+    }
+  };
   return (
     <section
       className="d-flex align-items-center text-white"
@@ -34,9 +47,13 @@ const HeroSection = () => {
               Enter your symptoms and let our AI help you understand possible
               conditions instantly.
             </p>
-            <Link to="/symptoms-analysis">
-              <button className="btn btn-primary btn-lg mt-3">Analyse</button>
-            </Link>
+
+            <button
+              onClick={handleAnalyse}
+              className="btn btn-primary btn-lg mt-3"
+            >
+              Analyse
+            </button>
           </div>
         </div>
       </div>

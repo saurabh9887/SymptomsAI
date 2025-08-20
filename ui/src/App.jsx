@@ -14,10 +14,14 @@ export default function App() {
     <div className="">
       <BrowserRouter>
         <Routes>
+          {/* Login without navbar */}
           <Route path="/login" element={<LoginPage />} />
-          <Route path="/" element={<Layout />} />
-          <Route index element={<Home />} />
-          <Route path="symptoms-analysis" element={<Symptoms />} />
+
+          {/* Layout with navbar */}
+          <Route path="/" element={<Layout />}>
+            <Route index element={<Home />} /> {/* default child of Layout */}
+            <Route path="symptoms-analysis" element={<Symptoms />} />
+          </Route>
         </Routes>
       </BrowserRouter>
       ,

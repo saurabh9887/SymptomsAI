@@ -4,6 +4,7 @@ import BootstrapToast from "../Components/BootstrapToast";
 import { useNavigate } from "react-router-dom";
 import { useToast } from "../Context/ToastContext";
 import { useAuth } from "../Context/authContext";
+import { BsEye, BsEyeSlash } from "react-icons/bs";
 
 export default function LoginPage() {
   const [email, setEmail] = useState("");
@@ -11,6 +12,7 @@ export default function LoginPage() {
   //   const [showToast, setShowToast] = useState(false);
   const { showToast } = useToast();
   const [error, setError] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
   const { login } = useAuth();
 
@@ -72,18 +74,27 @@ export default function LoginPage() {
             />
           </div>
 
+          {/* Password field with toggle */}
           <div className="mb-3">
             <label className="form-label">Password</label>
-            <input
-              type="password"
-              className="form-control"
-              placeholder="Enter password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-            />
+            <div className="input-group">
+              <input
+                type={showPassword ? "text" : "password"}
+                className="form-control"
+                placeholder="Enter password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+              />
+              <span
+                className="input-group-text"
+                style={{ cursor: "pointer" }}
+                onClick={() => setShowPassword(!showPassword)}
+              >
+                {showPassword ? <BsEyeSlash /> : <BsEye />}
+              </span>
+            </div>
           </div>
-
           <button type="submit" className="btn btn-primary w-100">
             Login
           </button>
