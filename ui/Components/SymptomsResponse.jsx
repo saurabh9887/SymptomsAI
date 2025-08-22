@@ -1,10 +1,13 @@
+import ReactMarkdown from "react-markdown";
+
 export default function SymptomResponse({ response }) {
   if (!response) return null;
   return (
     <div className="card mb-4">
       <div className="card-header fw-bold">AI Response</div>
       <div className="card-body">
-        <p className="card-text">{response}</p>
+        {/* <p className="card-text">{response}</p> */}
+        <ReactMarkdown>{response}</ReactMarkdown>
       </div>
     </div>
   );

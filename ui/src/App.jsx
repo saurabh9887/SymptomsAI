@@ -7,6 +7,7 @@ import Symptoms from "../Pages/Symptoms";
 import LoginPage from "../Pages/LoginPage";
 import HistoryPage from "../Components/SymptomsHistory";
 import ProtectedRoute from "../Components/ProtectedRoute";
+import RegisterPage from "../Pages/RegisterPage";
 
 export default function App() {
   const [aiResponse, setAiResponse] = useState(null);
@@ -18,6 +19,7 @@ export default function App() {
         <Routes>
           {/* Login without navbar */}
           <Route path="/login" element={<LoginPage />} />
+          <Route path="/register" element={<RegisterPage />} />
 
           {/* Layout with navbar */}
           <Route path="/" element={<Layout />}>

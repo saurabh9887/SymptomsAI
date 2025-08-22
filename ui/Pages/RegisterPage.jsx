@@ -1,13 +1,14 @@
 import React, { useState } from "react";
-import { LoginAPI } from "../APIServices/Login/Login";
+import { LoginAPI, RegisterAPI } from "../APIServices/Login/Login";
 import BootstrapToast from "../Components/BootstrapToast";
 import { Link, useNavigate } from "react-router-dom";
 import { useToast } from "../Context/ToastContext";
 import { useAuth } from "../Context/authContext";
 import { BsEye, BsEyeSlash } from "react-icons/bs";
 
-export default function LoginPage() {
+export default function RegisterPage() {
   const [email, setEmail] = useState("");
+  const [name, setName] = useState("");
   const [password, setPassword] = useState("");
   //   const [showToast, setShowToast] = useState(false);
   const { showToast } = useToast();
@@ -20,6 +21,9 @@ export default function LoginPage() {
     e.preventDefault();
     let isValid = false;
     if (
+      name === "" ||
+      name === undefined ||
+      name === null ||
       email === "" ||
       email === undefined ||
       email === null ||
@@ -32,22 +36,22 @@ export default function LoginPage() {
     }
 
     const api_params = {
+      name: name,
       email: email,
       password: password,
     };
 
     if (!isValid) {
-      UserLoginAPI(api_params);
+      UserRegisterAPI(api_params);
     }
   };
 
-  const UserLoginAPI = async (api_params) => {
+  const UserRegisterAPI = async (api_params) => {
     try {
-      const res = await LoginAPI(api_params);
-      if (res.data.token) {
-        showToast("Login Successful!");
-        login(res.data.user);
-        navigate("/");
+      const res = await RegisterAPI(api_params);
+      if (res) {
+        showToast("User Registered, please login to continue!");
+        navigate("/login");
       }
     } catch (error) {
       console.log(error);
@@ -60,8 +64,19 @@ export default function LoginPage() {
         className="card shadow p-4"
         style={{ width: "350px", borderRadius: "12px" }}
       >
-        <h3 className="text-center mb-4">Login</h3>
+        <h3 className="text-center mb-4">Register</h3>
         <form onSubmit={handleSubmit}>
+          <div className="mb-3">
+            <label className="form-label">Enter name</label>
+            <input
+              type="text"
+              className="form-control"
+              placeholder="Enter name"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              required
+            />
+          </div>
           <div className="mb-3">
             <label className="form-label">Email address</label>
             <input
@@ -96,11 +111,11 @@ export default function LoginPage() {
             </div>
           </div>
           <button type="submit" className="btn btn-primary w-100">
-            Login
+            Register
           </button>
         </form>
         <span className="text-center mt-2">
-          Don't have an account? <Link to="/register">Register here</Link>{" "}
+          Don't have an account? <Link to="/login">Login here</Link>{" "}
         </span>
       </div>
       {/* <BootstrapToast showToast={showToast} setShowToast={setShowToast} /> */}
